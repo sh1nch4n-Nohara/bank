@@ -1,5 +1,88 @@
+def createacc(name,user_name,passwd):
+    zero=0
+    with open('my_list.txt','a') as file:
+        file.write(f'\n{name},{user_name},{passwd},{zero}')
+    
+def login(user_name,passwd):
+    with open('my_list.txt', 'r') as f:
+        lines = f.readlines()
+    for line in lines:
+        parts = line.strip().split(',')
+        if len(parts)>=3:
+         if parts[2]==passwd and parts[1] == user_name:
+            print(f'Welcome, {parts[0]}')
+            global account_index
+            account_index=(lines.index(line))
+            return True
 
+def deposit(deposite_amount):
+    with open('my_list.txt','r') as f:
+        lines=f.readlines()
+    parts=(lines[account_index]).split(',')
+    parts[-1]=int(parts[-1])+deposite_amount
+    parts[-1]=str(parts[-1])+'\n'
+    lines[account_index]=','.join(parts)
 
-# Python obfuscation by freecodingtools.org
-                    
-_ = lambda __ : __import__('zlib').decompress(__import__('base64').b64decode(__[::-1]));exec((_)(b'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'))
+    with open('my_list.txt','w') as f:
+        f.writelines(lines)
+    print('your balance is : ',parts[-1])
+
+def withdrawl(withdraw_amount):
+    with open('my_list.txt','r') as f:
+        lines=f.readlines()
+    parts=(lines[account_index]).split(',')
+    parts[-1]=int(parts[-1])-withdraw_amount
+    parts[-1]=str(parts[-1])+'\n'
+    lines[account_index]=','.join(parts)
+    with open('my_list.txt','w') as f:
+        f.writelines(lines)
+    print('your balance is : ',parts[-1])
+
+def balance():
+    with open('my_list.txt','r') as f:
+        lines=f.readlines()
+    parts=(lines[account_index]).split(',')
+    print('your balance is : ',parts[-1])
+
+def admin(admin_passwd):
+    with open('my_list.txt','r') as f:
+        lines=f.readlines()
+    if admin_passwd=='mominalimandal':
+        print(f'there are total {len(lines)} accounts')
+    else:
+        print('access denied')
+while True:
+    print('created by >> momin\n.\n1.create account 2.log in(0 to stop) : ')
+    f1=input('enter : ')
+    if f1=='0':
+        break
+    elif f1=='1' or f1=='create account':
+        name=input('enter name : ')
+        username=input('create a username : ')
+        passwd=input('create a passwd : ')
+        createacc(name,username,passwd)
+    elif f1=='3':
+        passwd_admin=input('enter admin password : ')
+        admin(passwd_admin)
+
+    elif f1=='2' or f1=='log in':
+        username=input('enter ur username: ')
+        passwd=input('enter passwd : ')
+        login(username,passwd)
+        if login(username,passwd) is True:
+            print('1.deposit   2.withdrawl   3.balance')
+            f3=input('enter : ')
+            if f3=='1' or f3=='deposit':
+                deposit_amount=int(input('enter amount : '))
+                deposit(deposit_amount)
+            elif f3=='2' or f3=='withdrawl':
+                withdraw_amount=int(input('enter withdraw amount : '))
+                withdrawl(withdraw_amount)
+            elif f3=='3' or f3=='balance':
+                balance()
+            else:
+                print('please enter 1 or 2 or 3')
+        else:
+            print('login failed\nwrong password or wrong username maybe')
+    else:
+        print('please type 1 or 2 or 0 ')
